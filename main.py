@@ -1,64 +1,55 @@
-from flask import Flask, request, render_template, redirect
-from peewee import Model, SqliteDatabase, TextField, BooleanField, DateTimeField
-from datetime import datetime
-from datetime import datetime
-import os
+from flask import Flask, request
+from flask_restx import Api, Resource, fields
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app)
+api = Api(app = app, 
+		  version = "1.0", 
+		  title = "Name Recorder", 
+		  description = "Manage names of various users of the application")
 
-db = SqliteDatabase('todo.db')
+ns = api.namespace('names', description='Manage names')
 
-class BaseModel(Model):
-    """A base model that will use our Sqlite database."""
-    class Meta:
-        database = db
+model = api.model('Name Model', 
+				  {'name': fields.String(required = True, 
+    					  				 description="Name of the person", 
+    					  				 help="Name cannot be blank.")})
 
+list_of_names = {}
 
-class Note(BaseModel):
-    text = TextField()
-    done = BooleanField()
+@ns.route("/<int:id>")
+class MainClass(Resource):
 
-    dateAdded = DateTimeField(default=datetime.now)
-
-db.connect()
-db.create_tables([Note,])
-
-
-def create_note(text):
-    note = Note(text=text, done=False)
-    note.save()
-
-
-def read_notes():
-    return Note.select()
-
-
-def update_note(note_id, text, done):
-	note = Note.select().where(Note.id == note_id).get()
-	note.text = text
-	note.done = True if done == "on" else False
-	note.save()
-	
-
-def delete_note(note_id):
-    Note.get(Note.id == note_id).delete_instance()
+	@ns.doc(responses={ 200: 'OK', 400: 'Invalid Argument', 500: 'Mapping Key Error' }, 
+			 params={ 'id': 'Specify the Id associated with the person' })
+	def get(self, id):
+		try:
+			name = list_of_names[id]
+			return {
+				"status": "Person retrieved",
+				"name" : list_of_names[id]
+			}
+		except KeyError as e:
+			ns.abort(500, e.__doc__, status = "Could not retrieve information", statusCode = "500")
+		except Exception as e:
+			ns.abort(400, e.__doc__, status = "Could not retrieve information", statusCode = "400")
 
 
-@app.route("/", methods=["POST", "GET"])
-def view_index():
-    if request.method == "POST":
-        create_note(request.form['text'])
-    return render_template("index.html", notes=read_notes())
+	@ns.doc(responses={ 200: 'OK', 400: 'Invalid Argument', 500: 'Mapping Key Error' }, 
+			 params={ 'id': 'Specify the Id associated with the person' })
+	@ns.expect(model)		
+	def post(self, id):
+		try:
+			list_of_names[id] = request.json['name']
+			return {
+				"status": "New person added",
+				"name": list_of_names[id]
+			}
+		except KeyError as e:
+			ns.abort(500, e.__doc__, status = "Could not save information", statusCode = "500")
+		except Exception as e:
+			ns.abort(400, e.__doc__, status = "Could not save information", statusCode = "400")
 
-
-@app.route("/edit/<note_id>", methods=["POST", "GET"])
-def edit_note(note_id):
-    if request.method == "POST":
-        update_note(note_id, text=request.form['text'], done=request.form['done'])
-    elif request.method == "GET":
-        delete_note(note_id)
-    return redirect("/", code=302)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
