@@ -3,29 +3,34 @@ from datetime import datetime
 
 
 db = SqliteDatabase('todo.sqlite')
-
 class BaseModel(Model):
     class Meta:
         database = db
 
-class Note(BaseModel):
-    text = TextField()
+class Task(BaseModel):
+
+    title = CharField(max_length=150)
+    content = TextField()
     done = BooleanField()
 
-    dateAdded = DateTimeField(default=datetime.now)
+    create_at = DateTimeField(default=datetime.now)
 
     @property
     def serialize(self):
         data = {
             'id': self.id,
-            'text': str(self.text).strip(),
-            'done': str(self.done).strip(),
-            'dateAdded': self.dateAdded,
+            'title': str(self.title).strip(),
+            'content': str(self.content).strip(),
+            'done': self.done,
+            'create_at': self.create_at,
         }
         return data
 
     def __repr__(self):
-        return f'{self.id}, {self.text}, {self.done}, {self.dateAdded}'
+        return f'{self.id}, {self.title}, {self.content}, {self.create_at}'
+        
 
-db.connect()
-db.create_tables(Note, safe=True)
+def create_tables():
+    print('done')
+    with db:
+        db.create_tables([Task,])
