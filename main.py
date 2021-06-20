@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask_restx import Api, Resource, fields
+import requests
 from werkzeug.middleware.proxy_fix import ProxyFix
 from model import db
 from datetime import datetime
@@ -11,15 +12,19 @@ api = Api(app, version='1.0', title='TodoMVC API',
     description='A simple TodoMVC API',
 )
 
-ns = api.namespace('todos', description='TODO operations')
+ns = api.namespace('api/task/', description='TODO operations')
 
 task_list = api.model('Task', {
     'id': fields.Integer(readonly=True, description='The task unique identifier'),
     'title': fields.String(required=True, description='The title task'),
-    'create_at': fields.DateTime(required=True, description='Date and time create'),
+    'content': fields.String(required=True, description='The content task'),
+    'done': fields.Boolean(requests=True, description='Task completion mark')
+
 })
 
-task = task_list.clone('Task_detail', {
+task = api.model('Task_detail', {
+    'id': fields.Integer(readonly=True, description='The task unique identifier'),
+    'title': fields.String(required=True, description='The title task'),
     'content': fields.String(required=True, description='The title task'),
 })
 
@@ -73,6 +78,7 @@ class TaskDAO(object):
         return tasks_json
 
     def get(self, id):
+        print(id)
         task = Task.select().where(Task.id == id).get()
         if task:
             return task
@@ -104,7 +110,7 @@ class TaskDAO(object):
         try:
             Task.get(Task.id == id).delete_instance()
         except:
-            api.abort(404, f"Todo {id} doesn't exist")
+            api.abort(404, f"Todo {id} doesn't exist.")
 
 
 DAO = TaskDAO()
