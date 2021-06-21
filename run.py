@@ -1,6 +1,6 @@
-from model import create_tables
-from main import app
+from todo import create_app
 
-if __name__ == '__main__':
-    create_tables()
+app = create_app()
+
+if __name__ == "__main__":
     app.run(debug=True)
