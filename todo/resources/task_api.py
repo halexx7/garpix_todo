@@ -51,14 +51,14 @@ class TodoList(Resource):
     @ns.marshal_list_with(task_list)
     def get(self):
         """List all tasks"""
-        return DAO.get_all()
+        return DAO.get_all_task()
 
     @ns.doc("create_todo")
     @ns.expect(task_create)
     @ns.marshal_with(task, code=201)
     def post(self):
         """Create a new task"""
-        return DAO.create(request.json), 201
+        return DAO.create_task(request.json), 201
 
 
 @ns.route("/<int:id>")
@@ -71,13 +71,13 @@ class Todo(Resource):
     @ns.marshal_with(task_detail)
     def get(self, id):
         """Fetch a given resource"""
-        return DAO.get(id)
+        return DAO.get_task(id)
 
     @ns.doc("delete_todo")
     @ns.response(204, "Todo deleted")
     def delete(self, id):
         """Delete a task given its identifier"""
-        DAO.delete(id)
+        DAO.delete_task(id)
         return "", 204
 
     @ns.expect(task_create)

@@ -10,12 +10,11 @@ class ApiTest(unittest.TestCase):
     TASKS_URL = f"{API_URL}/task/"
     TEST_DAO = Task()
     ID = 7
-    TASK_OBJ = {"id": ID, "title": "Internship at GARPIX", "content": "Complete test task", "done": False}
+    TASK_OBJ = {"id": ID, "title": "Internship at GARPIX", "content": "Complete test task"}
     NEW_TASK_OBJ = {
         "id": ID,
         "title": "I completed an internship at GARPIX",
         "content": "Successfully completed my internship and work at GARPIX",
-        "done": False,
     }
 
     def _get_each_task_url(self, id):
@@ -36,7 +35,7 @@ class ApiTest(unittest.TestCase):
     def test_3_get_new_task(self):
         r = requests.get(self._get_each_task_url(self.ID))
         self.assertEqual(r.status_code, 200)
-        self.assertDictEqual(r.json(), self.TASK_OBJ)
+        self.assertEqual(r.json()["title"], self.TASK_OBJ["title"])
 
     # PUT request to /api/task/id to update a existing task
     def test_4_update_existing_task(self):
@@ -47,7 +46,7 @@ class ApiTest(unittest.TestCase):
     def test_5_get_new_task_after_update(self):
         r = requests.get(self._get_each_task_url(self.ID))
         self.assertEqual(r.status_code, 200)
-        self.assertDictEqual(r.json(), self.NEW_TASK_OBJ)
+        self.assertEqual(r.json()["title"], self.NEW_TASK_OBJ["title"])
 
     # DELETE request to /api/task/id to delete a existing task
     def test_6_delete_task(self):
