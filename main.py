@@ -4,6 +4,7 @@ from flask import Flask
 from flask_restx import Api, Resource, fields
 from peewee import (BooleanField, CharField, DateTimeField, Model,
                     SqliteDatabase, TextField)
+
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
@@ -38,7 +39,6 @@ task = api.model(
 
 db = SqliteDatabase("todo.sqlite")
 
-
 class BaseModel(Model):
     class Meta:
         database = db
@@ -72,6 +72,7 @@ class Task(BaseModel):
         return tasks_json
 
     def get(self, id):
+        print(id)
         task = Task.select().where(Task.id == id).get()
         if task:
             return task
