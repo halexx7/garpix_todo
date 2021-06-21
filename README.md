@@ -4,12 +4,31 @@
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 </p>
 
-# A Todo List App GARPIX
+# TODO List GARPIX
 This is a todo list was completed as part of the test task when applying for an internship at GARPIX.
+
+<p align="center">
+  <img src="https://raw.github.com/marcosvbras/todo-list-python/master/images/to-do-list.jpg" alt="Custom image"/>
+</p>
 
 ## Requirements
 ```
 python >= 3.5
+click==7.1.2
+Flask==1.1.4
+flask-restx==0.4.0
+idna==2.10
+itsdangerous==1.1.0
+Jinja2==2.11.3
+jsonschema==3.2.0
+MarkupSafe==2.0.1
+peewee==3.14.4
+pyrsistent==0.17.3
+pytz==2021.1
+requests==2.25.1
+six==1.16.0
+urllib3==1.26.5
+Werkzeug==1.0.1
 ```
 
 ## Getting started
