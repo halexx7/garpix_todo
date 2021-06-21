@@ -5,22 +5,38 @@ from ..models.task_model import Task
 
 ns = Namespace("api/task/", description="TODO operations")
 
-task_list = ns.model(
+task = ns.model(
     "Task",
     {
         "id": fields.Integer(readonly=True, description="The task unique identifier"),
         "title": fields.String(required=True, description="The title task"),
         "content": fields.String(required=True, description="The content task"),
-        "done": fields.Boolean(requests=True, description="Task completion mark"),
+        "create_at": fields.DateTime(required=True, description="Create date"),
     },
 )
 
-task = ns.model(
+task_create = ns.model(
+    "Task_create",
+    {
+        "title": fields.String(required=True, description="The title task"),
+        "content": fields.String(required=True, description="Create date"),
+    },
+)
+
+task_list = ns.model(
+    "Task_list",
+    {
+        "title": fields.String(required=True, description="The title task"),
+        "create_at": fields.DateTime(required=True, description="Create date"),
+    },
+)
+
+task_detail = ns.model(
     "Task_detail",
     {
-        "id": fields.Integer(readonly=True, description="The task unique identifier"),
         "title": fields.String(required=True, description="The title task"),
-        "content": fields.String(required=True, description="The title task"),
+        "content": fields.String(required=True, description="Create date"),
+        "create_at": fields.DateTime(required=True, description="Create date"),
     },
 )
 
@@ -38,8 +54,8 @@ class TodoList(Resource):
         return DAO.get_all()
 
     @ns.doc("create_todo")
-    @ns.expect(task_list)
-    @ns.marshal_with(task_list, code=201)
+    @ns.expect(task_create)
+    @ns.marshal_with(task, code=201)
     def post(self):
         """Create a new task"""
         return DAO.create(request.json), 201
@@ -52,7 +68,7 @@ class Todo(Resource):
     """Show a single todo item and lets you delete them"""
 
     @ns.doc("get_todo")
-    @ns.marshal_with(task_list)
+    @ns.marshal_with(task_detail)
     def get(self, id):
         """Fetch a given resource"""
         return DAO.get(id)
@@ -64,8 +80,8 @@ class Todo(Resource):
         DAO.delete(id)
         return "", 204
 
-    @ns.expect(task_list)
-    @ns.marshal_with(task_list)
+    @ns.expect(task_create)
+    @ns.marshal_with(task)
     def put(self, id):
         """Update a task given its identifier"""
-        return DAO.update(id, request.json)
+        return DAO.update_task(id, request.json)

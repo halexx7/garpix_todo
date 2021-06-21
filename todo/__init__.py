@@ -9,6 +9,9 @@ def create_app():
     app = Flask(__name__)
     app.wsgi_app = ProxyFix(app.wsgi_app)
     init_api(app)
+   
+    return app
+
+def create_and_filling_db():
     create_tables()
     filling_db()
-    return app
