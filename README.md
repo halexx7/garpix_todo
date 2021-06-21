@@ -1,15 +1,21 @@
+
+
+# TODO List GARPIX
+
 <p align="center">
 <a href="https://github.com/psf/black/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
 <a href="https://pycqa.github.io/isortE"><img alt="Imports: isort" src="https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336"></a>
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 </p>
 
-# TODO List GARPIX
-This is a todo list was completed as part of the test task when applying for an internship at GARPIX.
 
 <p align="center">
   <img src="https://raw.github.com/marcosvbras/todo-list-python/master/images/to-do-list.jpg" alt="Custom image"/>
 </p>
+
+## What is this?
+This is a **TO DO List** was completed as part of the test task when applying for an internship at GARPIX.
+
 
 ## Requirements
 ```
@@ -86,9 +92,7 @@ MIT
   <img src="https://raw.github.com/marcosvbras/todo-list-python/master/images/to-do-list.jpg" alt="Custom image"/>
 </p>
 
-## What is this?
 
-**TO DO List** is a simple API project created with everything that I learned on course [Do Zero ao Deploy](https://github.com/cassiobotaro/do_zero_ao_deploy) by [Cássio Botaro](https://github.com/cassiobotaro/).
 
 This project covers the following concepts:
 - Python environments with [Pipenv](https://github.com/pypa/pipenv)
