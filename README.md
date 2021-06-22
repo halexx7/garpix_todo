@@ -8,7 +8,6 @@
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 </p>
 
-
 <p align="center">
   <img src="https://raw.github.com/marcosvbras/todo-list-python/master/images/to-do-list.jpg" alt="Custom image"/>
 </p>
@@ -16,6 +15,8 @@
 ## What is this?
 This is a **TO DO List** was completed as part of the test task when applying for an internship at GARPIX.
 
+## What can?
+- see the list of tasks
 
 ## Requirements
 ```
