@@ -13,7 +13,7 @@
 </p>
 
 ## What is this?
-This is a **TO DO List** was completed as part of the test task when applying for an internship at GARPIX.
+This is a **TodoGARPIX** was completed as part of the test task when applying for an internship at GARPIX.
 
 ## What can?
 - see the list of tasks
