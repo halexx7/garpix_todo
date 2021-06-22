@@ -1,6 +1,6 @@
 
 
-# TODO List GARPIX
+# A TodoGARPIX App
 
 <p align="left">
 <a href="https://github.com/psf/black/blob/main/LICENSE"><img alt="License: MIT" src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
