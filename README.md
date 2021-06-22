@@ -58,6 +58,8 @@ $ pip install -r requirements.txt
 ```
 
 ## RESTful interactions
+Use Swagger UI or cUrl utility to manipulate tasks. Below is an example of using the cUrl utility:
+
 **GET the List of todos**
 ```
 curl -H 'Content-Type: application/json' -X 'GET' 'http://127.0.0.1:5000/api/task/'
