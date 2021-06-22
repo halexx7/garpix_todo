@@ -57,8 +57,9 @@ $ source env/bin/activate  # use `env\Scripts\activate` on Windows
 $ pip install -r requirements.txt
 ```
 
+
 ## RESTful interactions
-Use Swagger UI or cUrl utility to manipulate tasks. Below is an example of using the cUrl utility:
+Use [Swagger UI](https://swagger.io/tools/swagger-ui/) or [cUrl](https://curl.se/) utility to manipulate tasks. Below is an example of using the cUrl utility:
 
 **GET the List of todos**
 ```
@@ -85,6 +86,7 @@ curl -H 'Content-Type: application/json' -d '{"title":"Dinner", "content":"Havin
 curl -H 'Content-Type: application/json' -X 'DELETE' 'http://127.0.0.1:5000/api/task/<ID>'
 ```
 
+
 ## UnitTEST
 To run the tests, you can use [unittest](https://docs.python.org/3/library/unittest.html) as following:
 ```bash
@@ -95,6 +97,7 @@ Ran 7 tests in 0.076s
 
 OK
 ```
+
 
 ## License
 MIT
