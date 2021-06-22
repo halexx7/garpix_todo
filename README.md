@@ -17,6 +17,10 @@ This is a **TO DO List** was completed as part of the test task when applying fo
 
 ## What can?
 - see the list of tasks
+- create a new task
+- detailed task overview
+- change one task
+- delete task
 
 ## Requirements
 ```
@@ -39,24 +43,6 @@ Werkzeug==1.0.1
 ```
 
 ## Getting started
-```bash
-Заменить на свои данные
-git clone https://github.com/a2975667/flask-gcp-mysql-demo.git
-cd flask-gcp-mysql-demo
-```
-
-for Windows:
-```
-python -m venv .venv
-source .venv/bin/activate
-```
-
-for UNIX like systens:
-```
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
 clone:
 ```
 $ git clone https://github.com/greyli/todoism.git
@@ -70,10 +56,32 @@ $ python -m venv env  # use `virtualenv env` for Python2, use `python3 ...` for 
 $ source env/bin/activate  # use `env\Scripts\activate` on Windows
 $ pip install -r requirements.txt
 ```
-or with Pipenv:
+
+RESTful interactions
+====================
+**GET the List of todos**
 ```
-$ pipenv install --dev
-$ pipenv shell
+curl -u test:test -H "Accept: application/json" -i http://localhost:5000/todos/api/v1.0/todos
+```
+
+**GET an individual todo**
+```
+curl -u test:test -H "Accept: application/json" -i http://localhost:5000/todos/api/v1.0/todo/<ID>
+```
+
+**POST a todo**
+```
+curl -u test:test -H "Content-Type: application/json" -X POST -d '{"title":"Lunch", "body":"Having lunch"}' -i http://localhost:5000/todos/api/v1.0/todo/create 
+```
+
+**UPDATE a todo**
+```
+curl -u test:test -H "Content-Type: application/json" -X PUT -d '{"title":"Dinner", "body":"Having Dinner"}' -i http://localhost:5000/todos/api/v1.0/todo/update/<ID>
+```
+
+**DELETE a todo**
+```
+curl -u test:test -H "Accept: application/json" -X DELETE http://localhost:5000/todos/api/v1.0/todo/delete/<ID>
 ```
 
 ## UnitTEST
